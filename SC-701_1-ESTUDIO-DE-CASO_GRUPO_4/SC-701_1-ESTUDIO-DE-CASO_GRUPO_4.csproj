@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>SC_701_1_ESTUDIO_DE_CASO_GRUPO_4</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.18">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Caso1.Domain\Caso1.Domain.csproj" />
+    <ProjectReference Include="..\Caso1.Infrastructure\Caso1.Infrastructure.csproj" />
+    <ProjectReference Include="..\Caso1.Persistence\Caso1.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>
