@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Caso1.Persistence.Repositories
 {
-    internal class UnitOfWork<T> : IUnitOfWork<T>, IDisposable
+    public class UnitOfWork<T> : IUnitOfWork<T>, IDisposable
         where T : DbContext
     {
 

@@ -14,6 +14,7 @@ namespace Caso1.Persistence.DbContexts
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         {
+
         }
 
         public DbSet<Tarea> Tareas { get; set; }

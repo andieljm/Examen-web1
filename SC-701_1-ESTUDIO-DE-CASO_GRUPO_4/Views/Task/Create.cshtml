@@ -1,0 +1,28 @@
+﻿@model InputT
+
+@{
+    ViewData["Title"] = "Crear Tarea";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form asp-action="Create">
+    <div class="form-group">
+        <label for="InputTarea_UsuarioId">Usuario:</label>
+        <select class="form-control" id="InputTarea_UsuarioId" name="InputUser.id" asp-items="@ViewBag.Usuarios">
+            <option value="">Seleccionar usuario</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="InputTarea_Asunto">Asunto:</label>
+        <input type="text" class="form-control" id="InputTarea_Asunto" name="InputTarea.Asunto" required>
+    </div>
+    <div class="form-group">
+        <label for="InputTarea_Esfuerzo">Esfuerzo:</label>
+        <input type="number" class="form-control" id="InputTarea_Esfuerzo" name="InputTarea.Esfuerzo" required>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Crear</button>
+    <a href="@Url.Action("Index")" class="btn btn-primary">Cancelar</a>
+</form>
+

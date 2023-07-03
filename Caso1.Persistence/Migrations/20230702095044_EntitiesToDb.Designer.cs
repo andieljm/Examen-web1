@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Caso1.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230702031424_EntitiesToDb")]
+    [Migration("20230702095044_EntitiesToDb")]
     partial class EntitiesToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

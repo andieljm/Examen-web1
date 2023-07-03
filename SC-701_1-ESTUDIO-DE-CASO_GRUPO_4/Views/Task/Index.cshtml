@@ -1,0 +1,37 @@
+﻿@model List<TareaDTO>
+@{
+    ViewData["Title"] = "Tareas";
+}
+<h1>@ViewData["Title"]</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Asunto</th>
+            <th>Usuario</th>
+            <th>Esfuerzo</th>
+            <th>Completado</th>
+            <th>
+                <a asp-action="Create" class="btn btn-outline-success">
+                    <i class="fa fa-plus"></i> Crear
+                </a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var tarea in Model)
+        {
+            <tr style="background-color: @(tarea.Completado ? "green" : "red");">
+                <td>@tarea.Id</td>
+                <td>@tarea.Asunto</td>
+                <td>@tarea.Users.FirstOrDefault()?.Name</td>
+                <td>@tarea.Esfuerzo Horas</td>
+                <td>@(tarea.Completado ? "Completada" : "Pendiente")</td>
+                <td>
+                    <button id="delete" class="btn-danger"><i class="fa-solid fa-eraser"></i>Delete</button>
+                    <a asp-action="Edit" asp-route-id="@tarea.Id" id="Editar" class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i>Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

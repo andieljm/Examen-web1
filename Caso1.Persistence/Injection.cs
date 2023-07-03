@@ -28,6 +28,11 @@ namespace Caso1.Persistence
             services.AddUnitOfWork<ApplicationDbContext>()
                 .AddRepository<Usuario, UserRepository>();
 
+            services.AddUnitOfWork<ApplicationDbContext>()
+                .AddRepository<Tarea, TareasRepository>();
+
+
+
 
             return services;
         }

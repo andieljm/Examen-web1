@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Caso1.Persistence.Contracts.Repositories
 {
-    public interface IUserRepository : IRepository<Usuario>
+    public interface ITareaRepository : IRepository<Tarea>
     {
     }
 }

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SC_701_1_ESTUDIO_DE_CASO_GRUPO_4.DTOs.Create
 {
-    public class TareaDTO
+    public class InputTarea
     {
         public DateTime Fecha { get; set; }
 

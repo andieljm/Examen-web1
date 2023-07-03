@@ -32,13 +32,13 @@ namespace SC_701_1_ESTUDIO_DE_CASO_GRUPO_4.Controllers
                     Esfuerzo = p.Esfuerzo,
                     Users = p.Usuarios.ConvertAll(i => new DTOs.List.UserDTO { Id = i.Id, Name = i.Name })
                 });
-
+            
             return new JsonResult(new { success = true, data = response });
         }
 
         [HttpPost]
         [Route("/api/tareas/create")]
-        public JsonResult Create([FromBody] DTOs.Create.TareaDTO product)
+        public JsonResult Create([FromBody] DTOs.Create.InputTarea product)
         {
             var existingProduct = _dbContext.Tareas.FirstOrDefault(s => s.Asunto == product.Asunto);
             if (existingProduct != null)
@@ -56,7 +56,7 @@ namespace SC_701_1_ESTUDIO_DE_CASO_GRUPO_4.Controllers
 
         [HttpPut]
         [Route("/api/tareas/update/{id}")]
-        public JsonResult Update([FromRoute] int id, DTOs.Create.TareaDTO product)
+        public JsonResult Update([FromRoute] int id, DTOs.Create.InputTarea product)
         {
             var existingProduct = _dbContext.Tareas.FirstOrDefault(s => s.Id == id);
             if (existingProduct == null)

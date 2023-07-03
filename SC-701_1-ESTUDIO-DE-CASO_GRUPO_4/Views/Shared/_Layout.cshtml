@@ -7,6 +7,8 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/SC_701_1_ESTUDIO_DE_CASO_GRUPO_4.styles.css" asp-append-version="true" />
+
+    <script src="https://kit.fontawesome.com/c83da54be2.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -24,6 +26,17 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Tarea" asp-action="Tareas">Privacy</a>
+                        </li>
+                        <li class="nav-item">
+                            <div class="dropdown">
+                                <button type="button" id="settings" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Opciones</button>
+                                <ul class="dropdown-menu" aria-labelledby="settings">
+                                    <li><a class="nav-link text-dark" asp-controller="Task" asp-action="Index">Tareas</a></li>
+                                </ul>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -43,6 +56,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
