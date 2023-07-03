@@ -3,17 +3,17 @@
     ViewData["Title"] = "Tareas";
 }
 <h1>@ViewData["Title"]</h1>
-<table class="table">
+<table class="table" id="Tabla">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Asunto</th>
-            <th>Usuario</th>
-            <th>Esfuerzo</th>
-            <th>Completado</th>
+            <th onclick="sortTable(0)">Id</th>
+            <th onclick="sortTable(1)">Asunto</th>
+            <th onclick="sortTable(2)">Usuario</th>
+            <th onclick="sortTable(3)">Esfuerzo</th>
+            <th onclick="sortTable(4)">Completado</th>
             <th>
                 <a asp-action="Create" class="btn btn-outline-success">
-                    <i class="fa fa-plus"></i> Crear
+                    <i class="fa fa-plus"></i> Crear Tarea
                 </a>
             </th>
         </tr>
@@ -21,15 +21,18 @@
     <tbody>
         @foreach (var tarea in Model)
         {
-            <tr style="background-color: @(tarea.Completado ? "green" : "red");">
+            <tr style="color: @(tarea.Completado ? "#4cad4c" : "red");">
                 <td>@tarea.Id</td>
                 <td>@tarea.Asunto</td>
                 <td>@tarea.Users.FirstOrDefault()?.Name</td>
                 <td>@tarea.Esfuerzo Horas</td>
-                <td>@(tarea.Completado ? "Completada" : "Pendiente")</td>
                 <td>
-                    <button onclick="confirmDelete(@tarea.Id);" class="btn btn-danger"><i class="fa-solid fa-eraser"></i>Delete</button>
-                    <a asp-action="Edit" asp-route-id="@tarea.Id" id="Editar" class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i>Editar</a>
+                    <i class="fa-regular @(tarea.Completado ? "fa-circle-check" : "fa-circle-xmark")"></i>
+                    @(tarea.Completado ? "Completada" : "Pendiente")
+                </td>
+                <td>
+                    <button onclick="confirmDelete(@tarea.Id);" class="btn btn-outline-danger"><i class="fa-solid fa-eraser"></i>Borrar</button>
+                    <a asp-action="Edit" asp-route-id="@tarea.Id" id="Editar" class="btn btn-outline-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i>Editar</a>
                 </td>
             </tr>
         }
@@ -63,4 +66,57 @@
         }
     }
 
+</script>
+<script>
+    function sortTable(n) {
+        var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+        table = document.getElementById("Tabla");
+        switching = true;
+        dir = "asc";
+        while (switching) {
+            switching = false;
+            rows = table.rows;
+            for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("td")[n];
+                y = rows[i + 1].getElementsByTagName("td")[n];
+                var XtrimmedText, YtrimmedText;
+                if (dir == "asc") {
+                    if ((n == 0) || (n == 3)) {
+                        XtrimmedText = x.innerHTML.split(" ");
+                        YtrimmedText = y.innerHTML.split(" ");
+                        if (Number(XtrimmedText[0]) > Number(YtrimmedText[0])) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if ((n == 0) || (n == 3)) {
+                        XtrimmedText = x.innerHTML.split(" ");
+                        YtrimmedText = y.innerHTML.split(" ");
+                        if (Number(XtrimmedText[0]) < Number(YtrimmedText[0])) {
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+            }
+            if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount++;
+            } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
+        }
+    }
 </script>
