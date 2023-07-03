@@ -28,10 +28,39 @@
                 <td>@tarea.Esfuerzo Horas</td>
                 <td>@(tarea.Completado ? "Completada" : "Pendiente")</td>
                 <td>
-                    <button id="delete" class="btn-danger"><i class="fa-solid fa-eraser"></i>Delete</button>
+                    <button onclick="confirmDelete(@tarea.Id);" class="btn btn-danger"><i class="fa-solid fa-eraser"></i>Delete</button>
                     <a asp-action="Edit" asp-route-id="@tarea.Id" id="Editar" class="btn btn-primary"><i class="fa-sharp fa-solid fa-pen-to-square"></i>Editar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+<script>
+    function confirmDelete(taskId) {
+        if (confirm("¿Estás seguro de que quieres eliminar esta tarea?")) {
+            // Si el usuario confirma la eliminación, envía una solicitud DELETE al servidor
+            fetch(`/Task/delete/${taskId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $('input[name="__RequestVerificationToken"]').val()
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Si la eliminación es exitosa, redirige a la página principal o muestra un mensaje de éxito
+                        window.location.href = '/Task/Index';
+                    } else {
+                        // Si hay un error, muestra un mensaje de error
+                        alert('Ocurrió un error al eliminar la tarea.');
+                    }
+                })
+                .catch(error => {
+                    // Si hay un error, muestra un mensaje de error
+                    alert('Ocurrió un error al eliminar la tarea.');
+                });
+        }
+    }
+
+</script>

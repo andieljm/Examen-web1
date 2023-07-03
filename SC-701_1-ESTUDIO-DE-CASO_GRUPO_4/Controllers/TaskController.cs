@@ -85,5 +85,68 @@ namespace SC_701_1_ESTUDIO_DE_CASO_GRUPO_4.Controllers
 
             return View(input);
         }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            var tarea = _tareaRepository.Get(u => u.Id == id);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+
+            var tareaDTO = new InputTarea
+            {
+                Id = tarea.Id,
+                Asunto = tarea.Asunto,
+                Completado = tarea.Completado,
+                Esfuerzo = tarea.Esfuerzo
+            };
+
+            return View(tareaDTO);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, InputTarea input)
+        {
+            if (id != input.Id)
+            {
+                return NotFound();
+            }
+
+            if (input.Asunto != null && input.Esfuerzo != null && input.Completado != null)
+            {
+                var tarea = _tareaRepository.Get(u => u.Id == id);
+                if (tarea == null)
+                {
+                    return NotFound();
+                }
+
+                tarea.Asunto = input.Asunto;
+                tarea.Completado = input.Completado;
+                tarea.Esfuerzo = input.Esfuerzo;
+
+                _tareaRepository.Update(tarea);
+                _unitOfWork.Save();
+
+                return RedirectToAction("Index");
+            }
+
+            return View(input);
+        }
+
+        [HttpDelete("/Task/delete/{id}")]
+        public IActionResult Delete(int id)
+        {
+            var tarea = _tareaRepository.Get(u => u.Id == id);
+            if (tarea == null)
+            {
+                return NotFound();
+            }
+
+            _tareaRepository.Delete(tarea);
+            _unitOfWork.Save();
+
+            return Json(new { success = true });
+        }
     }
 }
